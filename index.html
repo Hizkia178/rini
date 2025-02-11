@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semangat Rini!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .neon-text {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #0ff;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #00f, 0 0 20px #0ff;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #0ff, 0 0 10px #00f, 0 0 20px #0ff;
+            }
+
+            100% {
+                text-shadow: 0 0 10px #0ff, 0 0 20px #00f, 0 0 30px #0ff;
+            }
+        }
+
+        .icons {
+            font-size: 35px;
+            margin: 15px 0;
+        }
+
+        .icons i {
+            margin: 0 10px;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icons">
+            <i class="fas fa-bolt"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-star"></i>
+        </div>
+        <h1 class="neon-text" id="text"></h1>
+    </div>
+
+    <script>
+        const textElement = document.getElementById("text");
+        const words = ["Rini, kamu luar biasa!", "Jangan pernah menyerah!", "Sukses menantimu!", "Terus berjuang!"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 1200);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                setTimeout(typeEffect, isDeleting ? 40 : 100);
+            }
+        }
+
+        typeEffect();
+    </script>
+</body>
+
+</html>
